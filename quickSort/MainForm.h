@@ -3,6 +3,8 @@
 #include "sorting.h"
 #include <random>
 #include <time.h>
+#include <chrono>
+#include <string>
 
 namespace quickSort {
 
@@ -49,14 +51,29 @@ namespace quickSort {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ selectFile;
 	private: System::Windows::Forms::GroupBox^ summary;
-	private: System::Windows::Forms::Label^ elemSum;
-	private: System::Windows::Forms::Label^ cmpSum;
-	private: System::Windows::Forms::Label^ swpSum;
-	private: System::Windows::Forms::Label^ timeSum;
+
+
+
+
 	private: System::Windows::Forms::NumericUpDown^ dataQua;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Button^ button1;
-	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel2;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::Label^ sizeLbl;
+	private: System::Windows::Forms::Label^ cmpLbl;
+	private: System::Windows::Forms::Label^ swpLbl;
+	private: System::Windows::Forms::Label^ timeLbl;
+
+
+
+
+
+
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -80,7 +97,6 @@ namespace quickSort {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -92,18 +108,23 @@ namespace quickSort {
 			this->filePath = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->summary = (gcnew System::Windows::Forms::GroupBox());
-			this->timeSum = (gcnew System::Windows::Forms::Label());
-			this->swpSum = (gcnew System::Windows::Forms::Label());
-			this->cmpSum = (gcnew System::Windows::Forms::Label());
-			this->elemSum = (gcnew System::Windows::Forms::Label());
+			this->tableLayoutPanel2 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->sizeLbl = (gcnew System::Windows::Forms::Label());
+			this->cmpLbl = (gcnew System::Windows::Forms::Label());
+			this->swpLbl = (gcnew System::Windows::Forms::Label());
+			this->timeLbl = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->openDataFile = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tableLayoutPanel1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataQua))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->summary->SuspendLayout();
+			this->tableLayoutPanel2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// tableLayoutPanel1
@@ -235,10 +256,8 @@ namespace quickSort {
 			// 
 			// summary
 			// 
-			this->summary->Controls->Add(this->timeSum);
-			this->summary->Controls->Add(this->swpSum);
-			this->summary->Controls->Add(this->cmpSum);
-			this->summary->Controls->Add(this->elemSum);
+			this->summary->AutoSize = true;
+			this->summary->Controls->Add(this->tableLayoutPanel2);
 			this->summary->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->summary->Location = System::Drawing::Point(427, 3);
 			this->summary->Name = L"summary";
@@ -247,45 +266,119 @@ namespace quickSort {
 			this->summary->TabStop = false;
 			this->summary->Text = L"Итоги:";
 			// 
-			// timeSum
+			// tableLayoutPanel2
 			// 
-			this->timeSum->AutoSize = true;
-			this->timeSum->Dock = System::Windows::Forms::DockStyle::Top;
-			this->timeSum->Location = System::Drawing::Point(3, 82);
-			this->timeSum->Name = L"timeSum";
-			this->timeSum->Size = System::Drawing::Size(165, 20);
-			this->timeSum->TabIndex = 3;
-			this->timeSum->Text = L"Затрачено времени:";
+			this->tableLayoutPanel2->ColumnCount = 2;
+			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tableLayoutPanel2->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tableLayoutPanel2->Controls->Add(this->label3, 0, 0);
+			this->tableLayoutPanel2->Controls->Add(this->label4, 0, 1);
+			this->tableLayoutPanel2->Controls->Add(this->label5, 0, 2);
+			this->tableLayoutPanel2->Controls->Add(this->label6, 0, 3);
+			this->tableLayoutPanel2->Controls->Add(this->sizeLbl, 1, 0);
+			this->tableLayoutPanel2->Controls->Add(this->cmpLbl, 1, 1);
+			this->tableLayoutPanel2->Controls->Add(this->swpLbl, 1, 2);
+			this->tableLayoutPanel2->Controls->Add(this->timeLbl, 1, 3);
+			this->tableLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tableLayoutPanel2->Location = System::Drawing::Point(3, 22);
+			this->tableLayoutPanel2->Name = L"tableLayoutPanel2";
+			this->tableLayoutPanel2->RowCount = 4;
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 25)));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 25)));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 25)));
+			this->tableLayoutPanel2->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 25)));
+			this->tableLayoutPanel2->Size = System::Drawing::Size(413, 161);
+			this->tableLayoutPanel2->TabIndex = 0;
 			// 
-			// swpSum
+			// label3
 			// 
-			this->swpSum->AutoSize = true;
-			this->swpSum->Dock = System::Windows::Forms::DockStyle::Top;
-			this->swpSum->Location = System::Drawing::Point(3, 62);
-			this->swpSum->Name = L"swpSum";
-			this->swpSum->Size = System::Drawing::Size(214, 20);
-			this->swpSum->TabIndex = 2;
-			this->swpSum->Text = L"Количество перестановок:";
+			this->label3->AutoSize = true;
+			this->label3->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->label3->Location = System::Drawing::Point(3, 0);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(200, 40);
+			this->label3->TabIndex = 0;
+			this->label3->Text = L"Количество элементов:";
+			this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
-			// cmpSum
+			// label4
 			// 
-			this->cmpSum->AutoSize = true;
-			this->cmpSum->Dock = System::Windows::Forms::DockStyle::Top;
-			this->cmpSum->Location = System::Drawing::Point(3, 42);
-			this->cmpSum->Name = L"cmpSum";
-			this->cmpSum->Size = System::Drawing::Size(188, 20);
-			this->cmpSum->TabIndex = 1;
-			this->cmpSum->Text = L"Количество сравнений:";
+			this->label4->AutoSize = true;
+			this->label4->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->label4->Location = System::Drawing::Point(3, 40);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(200, 40);
+			this->label4->TabIndex = 1;
+			this->label4->Text = L"Количество сравнений:";
+			this->label4->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
-			// elemSum
+			// label5
 			// 
-			this->elemSum->AutoSize = true;
-			this->elemSum->Dock = System::Windows::Forms::DockStyle::Top;
-			this->elemSum->Location = System::Drawing::Point(3, 22);
-			this->elemSum->Name = L"elemSum";
-			this->elemSum->Size = System::Drawing::Size(192, 20);
-			this->elemSum->TabIndex = 0;
-			this->elemSum->Text = L"Количество элементов:";
+			this->label5->AutoSize = true;
+			this->label5->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->label5->Location = System::Drawing::Point(3, 80);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(200, 40);
+			this->label5->TabIndex = 2;
+			this->label5->Text = L"Количество перестановок:";
+			this->label5->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->label6->Location = System::Drawing::Point(3, 120);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(200, 41);
+			this->label6->TabIndex = 3;
+			this->label6->Text = L"Затрачено времени (мс.):";
+			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// sizeLbl
+			// 
+			this->sizeLbl->AutoSize = true;
+			this->sizeLbl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->sizeLbl->Location = System::Drawing::Point(209, 0);
+			this->sizeLbl->Name = L"sizeLbl";
+			this->sizeLbl->Size = System::Drawing::Size(201, 40);
+			this->sizeLbl->TabIndex = 4;
+			this->sizeLbl->Text = L"0";
+			this->sizeLbl->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// cmpLbl
+			// 
+			this->cmpLbl->AutoSize = true;
+			this->cmpLbl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->cmpLbl->Location = System::Drawing::Point(209, 40);
+			this->cmpLbl->Name = L"cmpLbl";
+			this->cmpLbl->Size = System::Drawing::Size(201, 40);
+			this->cmpLbl->TabIndex = 5;
+			this->cmpLbl->Text = L"0";
+			this->cmpLbl->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// swpLbl
+			// 
+			this->swpLbl->AutoSize = true;
+			this->swpLbl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->swpLbl->Location = System::Drawing::Point(209, 80);
+			this->swpLbl->Name = L"swpLbl";
+			this->swpLbl->Size = System::Drawing::Size(201, 40);
+			this->swpLbl->TabIndex = 6;
+			this->swpLbl->Text = L"0";
+			this->swpLbl->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// timeLbl
+			// 
+			this->timeLbl->AutoSize = true;
+			this->timeLbl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->timeLbl->Location = System::Drawing::Point(209, 120);
+			this->timeLbl->Name = L"timeLbl";
+			this->timeLbl->Size = System::Drawing::Size(201, 41);
+			this->timeLbl->TabIndex = 7;
+			this->timeLbl->Text = L"0";
+			this->timeLbl->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// button1
 			// 
@@ -304,10 +397,6 @@ namespace quickSort {
 			// 
 			this->openDataFile->FileName = L"openDataFile";
 			// 
-			// timer1
-			// 
-			this->timer1->Interval = 50;
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -324,7 +413,8 @@ namespace quickSort {
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			this->summary->ResumeLayout(false);
-			this->summary->PerformLayout();
+			this->tableLayoutPanel2->ResumeLayout(false);
+			this->tableLayoutPanel2->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -354,6 +444,9 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		MessageBox::Show("Укажите файл с данными!", "ОШИБКА");
 	}
 	if (radioButton1->Checked && dataQua->Value > 1) {
+		// counter[0] - Счётчик сравнений
+		// counter[1] - Счётчик замен
+		int counters[2] = { 0, 0 };
 		int size = System::Decimal::ToInt32(dataQua->Value);
 		int* arr = new int[size];
 		std::srand(std::time(nullptr));
@@ -362,7 +455,20 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			arr[i] = std::rand();
 		}
 
-		sorter(arr, 0, size-1);
+		sizeLbl->Text = size.ToString();
+		auto a_time = std::chrono::system_clock::now();
+
+		sorter(arr, 0, size-1, counters);
+
+		auto b_time = std::chrono::system_clock::now();
+		auto sum_time = b_time - a_time;
+		//String^ dur = gcnew String(std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(sum_time).count()).c_str());
+		std::chrono::duration<double, std::ratio<1, 1000>> durat = b_time - a_time;
+		
+
+		timeLbl->Text = durat.count().ToString();
+		cmpLbl->Text = counters[0].ToString();
+		swpLbl->Text = counters[1].ToString();
 
 		delete arr;
 		
