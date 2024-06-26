@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+#include "sorting.h"
+#include <random>
+#include <time.h>
+
 namespace quickSort {
 
 	using namespace System;
@@ -154,7 +158,7 @@ namespace quickSort {
 			this->dataQua->Dock = System::Windows::Forms::DockStyle::Right;
 			this->dataQua->Location = System::Drawing::Point(295, 70);
 			this->dataQua->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 999999999, 0, 0, 0 });
-			this->dataQua->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
+			this->dataQua->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 0 });
 			this->dataQua->Name = L"dataQua";
 			this->dataQua->Size = System::Drawing::Size(120, 26);
 			this->dataQua->TabIndex = 2;
@@ -330,12 +334,14 @@ namespace quickSort {
 		if (radioButton1->Checked) {
 			filePath->Enabled = false;
 			selectFile->Enabled = false;
+			dataQua->Enabled = true;
 		}
 	}
 private: System::Void radioButton2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	if (radioButton2->Checked) {
 		filePath->Enabled = true;
 		selectFile->Enabled = true;
+		dataQua->Enabled = false;
 	}
 }
 private: System::Void selectFile_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -346,6 +352,20 @@ private: System::Void selectFile_Click(System::Object^ sender, System::EventArgs
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (radioButton2->Checked && filePath->Text == "") {
 		MessageBox::Show("Укажите файл с данными!", "ОШИБКА");
+	}
+	if (radioButton1->Checked && dataQua->Value > 1) {
+		int size = System::Decimal::ToInt32(dataQua->Value);
+		int* arr = new int[size];
+		std::srand(std::time(nullptr));
+
+		for (int i = 0; i < size; i++) {
+			arr[i] = std::rand();
+		}
+
+		sorter(arr, 0, size-1);
+
+		delete arr;
+		
 	}
 }
 };
