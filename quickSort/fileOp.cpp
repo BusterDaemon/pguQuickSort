@@ -28,3 +28,16 @@ int* readFile(char* filePath, int* outSize) {
 		
 	return result;
 }
+
+void writeFile(char* fPath, int* arr, int* arrSize) {
+	std::ofstream file;
+	file.open(fPath);
+	if (!file.is_open()) {
+		return;
+	}
+	for (int i = 0; i < *arrSize; i++) {
+		file << arr[i] << " ";
+	}
+	file.close();
+	return;
+}

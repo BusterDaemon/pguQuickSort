@@ -68,6 +68,8 @@ namespace quickSort {
 	private: System::Windows::Forms::Label^ cmpLbl;
 	private: System::Windows::Forms::Label^ swpLbl;
 	private: System::Windows::Forms::Label^ timeLbl;
+	private: System::Windows::Forms::SaveFileDialog^ saveSortedData;
+	private: System::Windows::Forms::CheckBox^ saveData;
 
 
 
@@ -100,6 +102,7 @@ namespace quickSort {
 		{
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->saveData = (gcnew System::Windows::Forms::CheckBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->dataQua = (gcnew System::Windows::Forms::NumericUpDown());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
@@ -120,6 +123,7 @@ namespace quickSort {
 			this->timeLbl = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->openDataFile = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->saveSortedData = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->tableLayoutPanel1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataQua))->BeginInit();
@@ -153,6 +157,7 @@ namespace quickSort {
 			// groupBox1
 			// 
 			this->groupBox1->AutoSize = true;
+			this->groupBox1->Controls->Add(this->saveData);
 			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->dataQua);
 			this->groupBox1->Controls->Add(this->radioButton2);
@@ -164,6 +169,16 @@ namespace quickSort {
 			this->groupBox1->TabIndex = 0;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Данные";
+			// 
+			// saveData
+			// 
+			this->saveData->AutoSize = true;
+			this->saveData->Location = System::Drawing::Point(9, 102);
+			this->saveData->Name = L"saveData";
+			this->saveData->Size = System::Drawing::Size(199, 24);
+			this->saveData->TabIndex = 4;
+			this->saveData->Text = L"Сохранить результат";
+			this->saveData->UseVisualStyleBackColor = true;
 			// 
 			// label2
 			// 
@@ -398,6 +413,10 @@ namespace quickSort {
 			// 
 			this->openDataFile->Filter = L"CSV файлы|*.csv|Текстовые документы|*.txt";
 			// 
+			// saveSortedData
+			// 
+			this->saveSortedData->Filter = L"Текстовый файл|*.txt";
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -470,6 +489,13 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		cmpLbl->Text = counters[0].ToString();
 		swpLbl->Text = counters[1].ToString();
 
+		if (saveData->Checked) {
+			if (saveSortedData->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+				char* fPath = (char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(saveSortedData->FileName);
+				writeFile(fPath, arr, &size);
+			}
+		}
+
 		delete arr;
 	}
 	if (radioButton2->Checked) {
@@ -491,6 +517,13 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		timeLbl->Text = durat.count().ToString();
 		cmpLbl->Text = counters[0].ToString();
 		swpLbl->Text = counters[1].ToString();
+
+		if (saveData->Checked) {
+			if (saveSortedData->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+				char* fPath = (char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(saveSortedData->FileName);
+				writeFile(fPath, arrRes, &size);
+			}
+		}
 
 		delete arrRes;
 	}
