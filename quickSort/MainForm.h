@@ -395,7 +395,7 @@ namespace quickSort {
 			// 
 			// openDataFile
 			// 
-			this->openDataFile->FileName = L"openDataFile";
+			this->openDataFile->Filter = L"CSV файлы|*.csv|Текстовые документы|*.txt";
 			// 
 			// MainForm
 			// 
@@ -450,7 +450,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		int size = System::Decimal::ToInt32(dataQua->Value);
 		int* arr = new int[size];
 		std::srand(std::time(nullptr));
-
+		
 		for (int i = 0; i < size; i++) {
 			arr[i] = std::rand();
 		}
@@ -460,9 +460,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 
 		sorter(arr, 0, size-1, counters);
 
-		auto b_time = std::chrono::system_clock::now();
-		auto sum_time = b_time - a_time;
-		//String^ dur = gcnew String(std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(sum_time).count()).c_str());
+		auto b_time = std::chrono::system_clock::now();				
 		std::chrono::duration<double, std::ratio<1, 1000>> durat = b_time - a_time;
 		
 
