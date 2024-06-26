@@ -1,3 +1,3 @@
 #pragma once
 
-int* readFile(char*);
+int* readFile(char*, int*);

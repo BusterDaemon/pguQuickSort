@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "sorting.h"
+#include "fileOp.h"
 #include <random>
 #include <time.h>
 #include <chrono>
@@ -442,6 +443,7 @@ private: System::Void selectFile_Click(System::Object^ sender, System::EventArgs
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (radioButton2->Checked && filePath->Text == "") {
 		MessageBox::Show("Укажите файл с данными!", "ОШИБКА");
+		return;
 	}
 	if (radioButton1->Checked && dataQua->Value > 1) {
 		// counter[0] - Счётчик сравнений
@@ -469,7 +471,28 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		swpLbl->Text = counters[1].ToString();
 
 		delete arr;
-		
+	}
+	if (radioButton2->Checked) {
+		int size = 0;
+		char* fPath = (char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(filePath->Text);
+		int* arrRes = readFile(fPath, &size);
+		if (arrRes == nullptr) {
+			MessageBox::Show("Не могу обработать файл!", "ОШИБКА");
+			return;
+		}
+		int counters[2] = { 0, 0 };
+		sizeLbl->Text = size.ToString();
+
+		auto a_time = std::chrono::system_clock::now();
+		sorter(arrRes, 0, size - 1, counters);
+		auto b_time = std::chrono::system_clock::now();
+		std::chrono::duration<double, std::ratio<1, 1000>> durat = b_time - a_time;
+
+		timeLbl->Text = durat.count().ToString();
+		cmpLbl->Text = counters[0].ToString();
+		swpLbl->Text = counters[1].ToString();
+
+		delete arrRes;
 	}
 }
 };
