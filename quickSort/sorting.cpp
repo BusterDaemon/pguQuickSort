@@ -1,15 +1,9 @@
 #include "sorting.h"
 
 void swap(int* x, int* y) {
-	if (*x != *y) {
-		*x = *y ^ *x;
-		*y = *x ^ *y;
-		*x = *x ^ *y;
-	}
-	else {
-		*x = *y;
-		*y = *x;
-	}
+	int temp = *x;
+	*x = *y;
+	*y = temp;
 }
 
 int partition(int arr[], int low, int high, int counters[]) {
