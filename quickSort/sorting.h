@@ -1,5 +1,5 @@
 #pragma once
 
-int partition(int[], int, int, int*);
-void sorter(int[], int, int, int*);
+int partition(int[], int, int, unsigned long long*);
+void sorter(int[], int, int, unsigned long long*);
 void swap(int*, int*);

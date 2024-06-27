@@ -467,7 +467,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	if (radioButton1->Checked && dataQua->Value > 1) {
 		// counter[0] - Счётчик сравнений
 		// counter[1] - Счётчик замен
-		int counters[2] = { 0, 0 };
+		unsigned long long counters[2] = { 0, 0 };
 		int size = System::Decimal::ToInt32(dataQua->Value);
 		int* arr = new int[size];
 		std::srand(std::time(nullptr));
@@ -506,7 +506,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 			MessageBox::Show("Не могу обработать файл!", "ОШИБКА");
 			return;
 		}
-		int counters[2] = { 0, 0 };
+		unsigned long long counters[2] = { 0, 0 };
 		sizeLbl->Text = size.ToString();
 
 		auto a_time = std::chrono::system_clock::now();

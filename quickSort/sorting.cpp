@@ -6,7 +6,7 @@ void swap(int* x, int* y) {
 	*y = temp;
 }
 
-int partition(int arr[], int low, int high, int* counters) {
+int partition(int arr[], int low, int high, unsigned long long* counters) {
 	int pivot = *(arr + high);
 	int i = (low - 1);
 
@@ -24,7 +24,7 @@ int partition(int arr[], int low, int high, int* counters) {
 	return (i + 1);
 }
 
-void sorter(int arr[], int low, int high, int* counters) {
+void sorter(int arr[], int low, int high, unsigned long long* counters) {
 	if (low < high) {
 		int pi = partition(arr, low, high, counters);
 		sorter(arr, low, pi - 1, counters);
